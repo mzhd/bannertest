@@ -66,12 +66,12 @@ public class MainActivity extends AppCompatActivity {
         vp_banner.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                System.out.println(""+event.getAction());
+                System.out.println("" + event.getAction());
                 toPause();
 
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     System.out.println(MotionEvent.ACTION_DOWN);
-                     toPause();
+                    toPause();
                 }
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     System.out.println(MotionEvent.ACTION_UP);
@@ -98,24 +98,29 @@ public class MainActivity extends AppCompatActivity {
     boolean isPlay;
 
     long millis = 3000;
-    boolean stop = false;
+     Boolean stop = false;
+
+     final Object object=new Object();
 
     class PlayRunnable implements Runnable {
 
         @Override
         public void run() {
-            while (!stop) {
-                try {
-                    Thread.sleep(millis);
-                    if (isPlay)
-                    {
-                        mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_WAHT_PLAY));
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            synchronized (object) {
 
+                while (!stop) {
+                    try {
+                        Thread.sleep(millis);
+                        if (isPlay) {
+                            mHandler.sendMessage(mHandler.obtainMessage(MESSAGE_WAHT_PLAY));
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                }
             }
+
         }
     }
 
@@ -127,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void toPlay() {
-        stop=false;
+        stop = false;
         isPlay = true;
     }
 
@@ -135,8 +140,8 @@ public class MainActivity extends AppCompatActivity {
         isPlay = false;
     }
 
-    public void toStop(){
-        stop=true;
+    public void toStop() {
+        stop = true;
     }
 
 
