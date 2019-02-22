@@ -5,12 +5,16 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 
@@ -63,6 +67,16 @@ public class MainActivity extends AppCompatActivity {
         vp_banner = findViewById(R.id.vp_banner);
         VPBannerAdapter vpBannerAdapter = new VPBannerAdapter(getSupportFragmentManager(), imgsURI);
         vp_banner.setAdapter(vpBannerAdapter);
+        vp_banner.setCurrentItem(1000);
+        vp_banner.setPageMargin(10);
+        DisplayMetrics outMetrics=new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(outMetrics);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT);
+        int  pageMargin=200;
+        layoutParams.width=outMetrics.widthPixels-pageMargin/2;
+        layoutParams.gravity= Gravity.CENTER_HORIZONTAL;
+        vp_banner.setLayoutParams(layoutParams);
+
         vp_banner.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -80,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
     }
 
     @Override

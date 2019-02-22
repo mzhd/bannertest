@@ -43,7 +43,9 @@ int position;
        // System.out.println(position+":OnCreateView");
         View rootView = inflater.inflate(R.layout.fragment_banner_item, container, false);
         ImageView img_item = rootView.findViewById(R.id.img_item);
-        Glide.with(getContext()).load(uri).into(img_item);
+
+        //placeholder(R.drawable.img_1)必须加上，不然imageview会被放大
+        Glide.with(getContext()).load(uri).placeholder(R.drawable.img_1).into(img_item);
 
         img_item.setOnLongClickListener(new View.OnLongClickListener() {
             @Override

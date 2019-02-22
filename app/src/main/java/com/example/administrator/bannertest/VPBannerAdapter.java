@@ -33,4 +33,9 @@ public class VPBannerAdapter extends FragmentStatePagerAdapter {
     public int getCount() {
         return Integer.MAX_VALUE;
     }
+
+    @Override
+    public float getPageWidth(int position) {
+        return 1f;
+    }
 }
